@@ -1395,50 +1395,28 @@ details.engine-card[open] .engine-chevron { transform: rotate(180deg); }
       <div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8C8C8C; margin-bottom: 14px; text-align: center;">What establishes the learner's baseline</div>
       <svg width="100%" viewBox="0 0 480 192" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
 
-        <!--
-          Each input box: h=56. Visual content block ≈ 38px.
-          Vertical centre of block = box_y + 28.
-          emoji baseline  = box_y + 22
-          title baseline  = box_y + 36
-          subtitle baseline = box_y + 47
-        -->
+        <!-- ── INPUT 1: Conv. Onboarding (teal) — box y=28 ── -->
+        <rect x="2" y="28" width="160" height="56" rx="9" fill="#E4F4F6" stroke="#B0DFE6" stroke-width="1.5"/>
+        <text x="82" y="50" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif">💬</text>
+        <text x="82" y="64" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0A6C7E" font-family="system-ui,sans-serif">Conv. Onboarding</text>
+        <text x="82" y="75" text-anchor="middle" font-size="9" fill="#595959" font-family="system-ui,sans-serif">Goals &amp; interests</text>
 
-        <!-- ── INPUT 1: Conv. Onboarding (teal) — box y=2 ── -->
-        <rect x="2" y="2" width="160" height="56" rx="9" fill="#E4F4F6" stroke="#B0DFE6" stroke-width="1.5"/>
-        <text x="82" y="24" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif">💬</text>
-        <text x="82" y="38" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0A6C7E" font-family="system-ui,sans-serif">Conv. Onboarding</text>
-        <text x="82" y="49" text-anchor="middle" font-size="9" fill="#595959" font-family="system-ui,sans-serif">Goals &amp; interests</text>
-
-        <!-- ── INPUT 2: LLM Context (blue) — box y=68 ── -->
-        <rect x="2" y="68" width="160" height="56" rx="9" fill="#E5F0FF" stroke="#B8D4FF" stroke-width="1.5"/>
-        <text x="82" y="90" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif">🤖</text>
-        <text x="82" y="104" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0056D2" font-family="system-ui,sans-serif">LLM Context</text>
-        <text x="82" y="115" text-anchor="middle" font-size="9" fill="#595959" font-family="system-ui,sans-serif">Learning intent</text>
-
-        <!-- ── INPUT 3: Diagnostics (purple) — box y=134 ── -->
-        <rect x="2" y="134" width="160" height="56" rx="9" fill="#EEE9F6" stroke="#D4C9EC" stroke-width="1.5"/>
-        <text x="82" y="156" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif">🩺</text>
-        <text x="82" y="170" text-anchor="middle" font-size="10.5" font-weight="700" fill="#6750A4" font-family="system-ui,sans-serif">Diagnostics</text>
-        <text x="82" y="181" text-anchor="middle" font-size="9" fill="#595959" font-family="system-ui,sans-serif">Self-assessed skill level</text>
+        <!-- ── INPUT 2: Diagnostics (purple) — box y=108 ── -->
+        <rect x="2" y="108" width="160" height="56" rx="9" fill="#EEE9F6" stroke="#D4C9EC" stroke-width="1.5"/>
+        <text x="82" y="130" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif">🩺</text>
+        <text x="82" y="144" text-anchor="middle" font-size="10.5" font-weight="700" fill="#6750A4" font-family="system-ui,sans-serif">Diagnostics</text>
+        <text x="82" y="155" text-anchor="middle" font-size="9" fill="#595959" font-family="system-ui,sans-serif">Self-assessed skill level</text>
 
         <!-- ── CONNECTORS ── -->
         <!-- Horizontal stubs from right edge of each box to vertical rail -->
-        <line x1="162" y1="30"  x2="176" y2="30"  stroke="#CBD5E1" stroke-width="1.4"/>
-        <line x1="162" y1="96"  x2="176" y2="96"  stroke="#CBD5E1" stroke-width="1.4"/>
-        <line x1="162" y1="162" x2="176" y2="162" stroke="#CBD5E1" stroke-width="1.4"/>
+        <line x1="162" y1="56"  x2="176" y2="56"  stroke="#CBD5E1" stroke-width="1.4"/>
+        <line x1="162" y1="136" x2="176" y2="136" stroke="#CBD5E1" stroke-width="1.4"/>
         <!-- Vertical rail -->
-        <line x1="176" y1="30" x2="176" y2="162" stroke="#CBD5E1" stroke-width="1.4"/>
+        <line x1="176" y1="56" x2="176" y2="136" stroke="#CBD5E1" stroke-width="1.4"/>
         <!-- Horizontal run to model -->
         <line x1="176" y1="96" x2="192" y2="96" stroke="#CBD5E1" stroke-width="1.4"/>
         <polygon points="194,96 184,90 184,102" fill="#CBD5E1"/>
 
-        <!--
-          Model box: y=56, h=80, centre_y=96.
-          Content: emoji(16) + title1(11) + title2(11), total visual ≈ 42px.
-          emoji baseline  = 96 - 21 + 13 = 88
-          title1 baseline = 88 + 15      = 103
-          title2 baseline = 103 + 13     = 116
-        -->
         <!-- ── LEARNER BASELINE MODEL (dark) — box y=56, h=80 ── -->
         <rect x="196" y="56" width="282" height="80" rx="10" fill="#1E2D40" stroke="#2D4460" stroke-width="1.5"/>
         <text x="337" y="88" text-anchor="middle" font-size="16" font-family="system-ui,sans-serif">👤</text>
