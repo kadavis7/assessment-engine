@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Assessment as the Engine for Personalization</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Coursera CDS — Primary (Blue 700) */
+  --blue:         #0056D2;
+  --blue-dark:    #004BBB;
+  --blue-light:   #E5F0FF;
+  --blue-mid:     #B8D4FF;
+
+  /* Coursera CDS — Accent colors */
+  --teal:         #0A6C7E;
+  --teal-light:   #E4F4F6;
+  --teal-mid:     #B0DFE6;
+  --purple:       #6750A4;
+  --purple-light: #EEE9F6;
+  --purple-mid:   #D4C9EC;
+  --indigo:       #2B2F8F;
+  --green:        #0B7438;
+  --green-light:  #E1F2E4;
+  --green-mid:    #AADDB7;
+
+  /* Progress & Achievement — gold */
+  --gold:         #92400E;
+  --gold-bright:  #B45309;
+  --gold-light:   #FFFBEB;
+  --gold-mid:     #FDE68A;
+  --gold-badge:   #FEF3C7;
+
+  /* Q2 Focus — amber/yellow */
+  --q2-bg:        #FEF9C3;
+  --q2-text:      #854D0E;
+  --q2-border:    #FDE68A;
+
+  /* Coursera CDS — Neutrals */
+  --slate:        #1F1F1F;
+  --slate-mid:    #3B3B3B;
+  --slate-soft:   #595959;
+  --slate-light:  #8C8C8C;
+  --border:       #E5E7EB;
+  --border-soft:  #F0F2F4;
+  --bg:           #F5F7F8;
+  --white:        #FFFFFF;
+
+  /* Dark surface (engine) — deep navy instead of black */
+  --engine-bg:    #1E2D40;
+
+  /* Shadows */
+  --shadow-sm:    0 1px 2px rgba(17,17,17,0.04);
+  --shadow-md:    0 2px 8px rgba(17,17,17,0.06);
+  --shadow-lg:    0 8px 24px rgba(17,17,17,0.08);
+
+  /* Radii */
+  --r-sm:         4px;
+  --r-md:         8px;
+  --r-lg:         12px;
+  --r-xl:         16px;
+  --r-pill:       999px;
+}
+
+body {
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--slate);
+  padding: 48px 36px 72px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── HEADER ───────────────────────────────── */
+.page-header {
+  text-align: center;
+  margin-bottom: 44px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: var(--blue-light);
+  border-radius: var(--r-pill);
+  padding: 5px 14px;
+  margin-bottom: 18px;
+}
+.page-header h1 {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--slate);
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+.page-header h1 em {
+  font-style: normal;
+  color: var(--blue);
+}
+.page-header p {
+  font-size: 15px;
+  color: var(--slate-mid);
+  line-height: 1.65;
+}
+
+/* ── SECTION LABELS ───────────────────────── */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── ANCHORING PURPOSE BANNER ─────────────── */
+.skill-goal-banner {
+  max-width: 1360px;
+  margin: 0 auto 32px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.sgb-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sgb-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+.sgb-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 3px;
+}
+.sgb-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate);
+  line-height: 1.45;
+}
+.sgb-right {
+  font-size: 12px;
+  color: var(--slate-soft);
+  text-align: right;
+  max-width: 320px;
+  line-height: 1.6;
+  border-left: 1px solid var(--border);
+  padding-left: 20px;
+}
+
+/* ── JOURNEY WRAPPER ─────────────────────── */
+.journey-outer {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+.journey-row {
+  display: flex;
+  align-items: stretch;   /* all groups + arrows stretch to same height */
+  gap: 0;
+}
+
+/* Arrow between groups */
+.j-arr {
+  flex-shrink: 0;
+  color: var(--slate-light);
+  font-size: 15px;
+  padding: 0 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+/* Individual step card */
+.j-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px 10px;
+  border-radius: var(--r-lg);
+  border: 1px solid transparent;
+  gap: 6px;
+  min-width: 0;
+  position: relative;
+  transition: transform 0.15s;
+}
+
+.step-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.step-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.step-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--slate);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+.step-desc {
+  font-size: 11px;
+  color: var(--slate-soft);
+  line-height: 1.5;
+  flex: 1;  /* pushes sig-badge to the bottom for consistent alignment */
+}
+
+/* Signal capture badge */
+.sig-badge {
+  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.02em;
+}
+
+/* Color variants */
+.j-step.c-entry {
+  background: var(--white);
+  border-color: var(--border);
+}
+.j-step.c-entry .step-num { color: var(--slate-light); }
+.j-step.c-entry .step-icon-circle { background: var(--border-soft); }
+.j-step.c-entry .sig-badge { background: var(--border-soft); color: var(--slate-soft); }
+
+.j-step.c-teal {
+  background: var(--teal-light);
+  border-color: var(--teal-mid);
+}
+.j-step.c-teal .step-num { color: var(--teal); }
+.j-step.c-teal .step-icon-circle { background: var(--teal); }
+.j-step.c-teal .sig-badge { background: var(--teal-mid); color: var(--teal); }
+
+.j-step.c-blue {
+  background: var(--blue-light);
+  border-color: var(--blue-mid);
+}
+.j-step.c-blue .step-num { color: var(--blue-dark); }
+.j-step.c-blue .step-icon-circle { background: var(--blue); }
+.j-step.c-blue .sig-badge { background: var(--blue-mid); color: var(--blue-dark); }
+
+.j-step.c-purple {
+  background: var(--purple-light);
+  border-color: var(--purple-mid);
+}
+.j-step.c-purple .step-num { color: var(--purple); }
+.j-step.c-purple .step-icon-circle { background: var(--purple); }
+.j-step.c-purple .sig-badge { background: var(--purple-mid); color: var(--purple); }
+
+.j-step.c-green {
+  background: var(--green-light);
+  border-color: var(--green-mid);
+}
+.j-step.c-green .step-num { color: var(--green); }
+.j-step.c-green .step-icon-circle { background: var(--green); }
+.j-step.c-green .sig-badge { background: var(--green-mid); color: var(--green); }
+
+/* ── GROUP WRAPPER — shared base ─────────── */
+.group-wrap {
+  border-radius: var(--r-xl);
+  padding: 14px 10px 14px;
+  position: relative;
+  min-width: 0;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── MATCHING GROUP ───────────────────────── */
+.match-wrap {
+  flex: 2.6;
+  border: 1px solid var(--border);
+  background: var(--border-soft);
+}
+.match-inner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  flex: 1;
+}
+
+/* ── LEARNING BLOCK GROUP ─────────────────── */
+.lb-wrap {
+  flex: 3.8;
+  border: 1px solid var(--blue-mid);
+  background: var(--blue-light);
+}
+.lb-inner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  flex: 1;
+}
+.lb-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--blue-mid);
+  flex-wrap: wrap;
+}
+.lb-meta-item {
+  font-size: 10.5px;
+  color: var(--blue-dark);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.lb-meta-item strong { font-weight: 700; color: var(--blue-dark); }
+
+/* ── PROGRESS & ACHIEVEMENT GROUP ────────── */
+.adapt-wrap {
+  flex: 2.6;
+  border: 1px solid var(--gold-mid);
+  background: var(--gold-light);
+}
+.adapt-inner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  flex: 1;
+}
+
+/* ── GROUP HEADER ROW ─────────────────────── */
+/* Shared header row inside each group wrapper  */
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.group-title {
+  flex: 1;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--slate-soft);
+}
+/* Per-group overrides */
+.lb-wrap .group-header  { border-bottom-color: var(--blue-mid); }
+.lb-wrap .group-title   { color: var(--blue-dark); }
+.adapt-wrap .group-header { border-bottom-color: var(--gold-mid); }
+.adapt-wrap .group-title  { color: var(--gold); }
+
+/* ── GOLD step variant ─────────────────────── */
+.j-step.c-gold {
+  background: var(--gold-badge);
+  border-color: var(--gold-mid);
+}
+.j-step.c-gold .step-num { color: var(--gold); }
+.j-step.c-gold .step-icon-circle { background: var(--gold-bright); }
+.j-step.c-gold .sig-badge { background: var(--gold-mid); color: var(--gold); }
+
+/* ── ADAPTATION FEEDBACK LOOP ────────────── */
+.adapt-feedback {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--gold-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.adapt-feedback-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.02em;
+}
+
+/* ── Q2 FOCUS BADGE ─────────────────────── */
+/* Inline badge used in group headers and step footers */
+.q2-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--q2-bg);
+  color: var(--q2-text);
+  border: 1px solid var(--q2-border);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.q2-badge::before { content: '✦'; font-size: 8px; }
+
+/* Q2 badge placed at the foot of a step card */
+.q2-step-foot {
+  margin-top: 4px;
+  align-self: center;
+}
+
+/* Interactive group/step affordance */
+.is-clickable {
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.2s ease;
+}
+.is-clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── SIGNAL FLOW CONNECTOR ───────────────── */
+.signal-flow {
+  max-width: 1360px;
+  margin: 10px auto 0;
+  padding: 0 10px;
+}
+.sf-down-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 30px;
+}
+.sf-down-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.sf-line {
+  width: 1.5px;
+  height: 18px;
+  background: linear-gradient(to bottom, var(--border), #C7D2FE);
+}
+.sf-arrow {
+  color: #C7D2FE;
+  font-size: 13px;
+  line-height: 1;
+}
+.sf-center-label {
+  text-align: center;
+  padding: 5px 0 3px;
+}
+.sf-center-label span {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--slate-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.sf-center-label span::before,
+.sf-center-label span::after {
+  content: '';
+  display: inline-block;
+  width: 48px;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── ASSESSMENT ENGINE ───────────────────── */
+.engine-section {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+.engine-card {
+  background: var(--engine-bg);
+  border-radius: var(--r-xl);
+  padding: 24px 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+details.engine-card { cursor: default; }
+details.engine-card[open] {
+  padding: 28px 32px 32px;
+}
+details.engine-card > summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+  padding: 4px 0;
+}
+details.engine-card > summary::-webkit-details-marker { display: none; }
+details.engine-card > summary .engine-head { margin-bottom: 0; }
+.engine-head-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.engine-chevron {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.65);
+  font-size: 11px;
+  transition: transform 0.25s ease, background 0.15s;
+  flex-shrink: 0;
+}
+details.engine-card > summary:hover .engine-chevron {
+  background: rgba(255,255,255,0.14);
+  color: white;
+}
+details.engine-card[open] .engine-chevron { transform: rotate(180deg); }
+
+.engine-body {
+  margin-top: 26px;
+  position: relative;
+  z-index: 1;
+}
+/* decorative blobs */
+.engine-card::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.engine-card::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: 60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.engine-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 26px;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+.engine-head-title h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+  letter-spacing: -0.015em;
+}
+.engine-head-title p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.55;
+  max-width: 440px;
+}
+.engine-ownership-badge {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-pill);
+  padding: 5px 13px;
+}
+
+/* Pillar paragraph copy */
+.ep-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.65;
+}
+.ep-copy strong {
+  color: rgba(255,255,255,0.88);
+  font-weight: 600;
+}
+
+/* Flow connector: pillars → outputs */
+.engine-flow-connector {
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+.efc-row {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr 40px 1fr;
+  align-items: center;
+}
+.efc-arrow {
+  text-align: center;
+  color: rgba(255,255,255,0.28);
+  font-size: 16px;
+  line-height: 1;
+}
+.efc-label {
+  text-align: center;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 8px;
+}
+
+/* Engine outputs */
+.engine-outputs {
+  margin-top: 16px;
+  position: relative;
+  z-index: 1;
+}
+.engine-outputs-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.engine-outputs-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+}
+.engine-outputs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.eo-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--r-lg);
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.eo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  background: rgba(255,255,255,0.06);
+}
+.eo-card.profile .eo-icon { background: rgba(127,179,255,0.13); }
+.eo-card.block .eo-icon   { background: rgba(200,185,238,0.13); }
+.eo-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -0.005em;
+  line-height: 1.35;
+}
+.eo-desc {
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.55;
+}
+.engine-loop-note {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Pillars */
+.engine-pillars {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr 40px 1fr;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+.pillar-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pillar-connector-arrow {
+  color: rgba(255,255,255,0.18);
+  font-size: 18px;
+}
+.eng-pillar {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--r-lg);
+  padding: 20px 18px;
+}
+.ep-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.ep-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.ep-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 3px;
+  letter-spacing: -0.005em;
+}
+.ep-subtitle {
+  font-size: 11px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+/* Pillar color schemes */
+.eng-pillar.p-capture .ep-num      { color: #7FB3FF; }
+.eng-pillar.p-capture .ep-icon     { background: rgba(127,179,255,0.13); }
+.eng-pillar.p-capture .ep-subtitle { color: rgba(127,179,255,0.75); }
+
+.eng-pillar.p-model .ep-num        { color: #C8B9EE; }
+.eng-pillar.p-model .ep-icon       { background: rgba(200,185,238,0.13); }
+.eng-pillar.p-model .ep-subtitle   { color: rgba(200,185,238,0.75); }
+
+.eng-pillar.p-adapt .ep-num        { color: #7ACCA0; }
+.eng-pillar.p-adapt .ep-icon       { background: rgba(122,204,160,0.13); }
+.eng-pillar.p-adapt .ep-subtitle   { color: rgba(122,204,160,0.75); }
+
+/* ── Q2 LEGEND ───────────────────────────── */
+.q2-legend {
+  max-width: 1360px;
+  margin: 8px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--slate-light);
+  padding-right: 2px;
+}
+.q2-legend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--q2-bg);
+  color: var(--q2-text);
+  border: 1px solid var(--q2-border);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+}
+.q2-legend-badge::before { content: '✦'; font-size: 8px; }
+
+/* ── MODAL OVERLAY ────────────────────────── */
+.opp-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.opp-modal.open {
+  display: flex;
+  animation: oppFade 0.18s ease-out;
+}
+.opp-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  cursor: pointer;
+}
+.opp-modal-content {
+  position: relative;
+  background: white;
+  border-radius: var(--r-xl);
+  max-width: 640px;
+  width: 100%;
+  padding: 36px 40px 32px;
+  box-shadow: 0 24px 64px rgba(17, 17, 17, 0.22);
+  animation: oppSlide 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opp-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--border-soft);
+  border: none;
+  font-size: 20px;
+  color: var(--slate-mid);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+.opp-modal-close:hover {
+  background: var(--border);
+  color: var(--slate);
+}
+.opp-modal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--q2-text);
+  background: var(--q2-bg);
+  border: 1px solid var(--q2-border);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  margin-bottom: 16px;
+}
+.opp-modal-eyebrow::before { content: '✦'; font-size: 9px; }
+.opp-modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--slate);
+  margin-bottom: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  padding-right: 40px;
+}
+.opp-modal-body {
+  font-size: 14px;
+  color: var(--slate-mid);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.opp-modal-body:last-of-type { margin-bottom: 0; }
+.opp-modal-body strong { color: var(--slate); font-weight: 700; }
+.opp-modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-soft);
+}
+.opp-modal-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: var(--r-pill);
+  background: var(--blue-light);
+  color: var(--blue-dark);
+}
+.opp-modal-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-soft);
+}
+.opp-modal-status-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+}
+.opp-modal-status-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--slate-soft);
+  background: var(--border-soft);
+  border: 1px solid var(--border);
+  padding: 3px 11px;
+  border-radius: var(--r-pill);
+}
+.opp-modal-status-value::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--slate-light);
+  flex-shrink: 0;
+}
+@keyframes oppFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes oppSlide {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── STATUS DROPDOWN ─────────────────────── */
+.status-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.status-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 11px 4px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--border-soft);
+  color: var(--slate-soft);
+  cursor: pointer;
+  transition: filter 0.15s;
+  user-select: none;
+  white-space: nowrap;
+}
+.status-trigger:hover { filter: brightness(0.96); }
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--slate-light);
+}
+.status-chevron {
+  font-size: 10px;
+  color: currentColor;
+  opacity: 0.55;
+  transition: transform 0.15s;
+  margin-left: 2px;
+}
+.status-dropdown.open .status-chevron { transform: rotate(180deg); }
+
+.status-options {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: 300;
+  min-width: 170px;
+  padding: 4px;
+}
+.status-dropdown.open .status-options { display: block; }
+
+.status-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--slate-mid);
+  cursor: pointer;
+  border-radius: var(--r-md);
+  transition: background 0.1s;
+}
+.status-option:hover { background: var(--border-soft); }
+.status-option.is-selected { font-weight: 700; color: var(--slate); }
+.status-option-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Trigger colour states */
+.s-grey   { color: var(--slate-soft);  background: var(--border-soft);   border-color: var(--border);      }
+.s-blue   { color: var(--blue-dark);   background: var(--blue-light);    border-color: var(--blue-mid);    }
+.s-purple { color: var(--purple);      background: var(--purple-light);  border-color: var(--purple-mid);  }
+.s-amber  { color: #92400E;            background: #FEF3C7;              border-color: #FDE68A;            }
+.s-green  { color: var(--green);       background: var(--green-light);   border-color: var(--green-mid);   }
+
+.s-grey   .status-dot { background: var(--slate-light); }
+.s-blue   .status-dot { background: var(--blue);        }
+.s-purple .status-dot { background: var(--purple);      }
+.s-amber  .status-dot { background: #D97706;            }
+.s-green  .status-dot { background: var(--green);       }
+
+/* Option dot colours */
+.status-option[data-value="Not yet started"] .status-option-dot { background: var(--slate-light); }
+.status-option[data-value="Shaping"]         .status-option-dot { background: var(--blue);        }
+.status-option[data-value="In Design"]       .status-option-dot { background: var(--purple);      }
+.status-option[data-value="In Development"]  .status-option-dot { background: #D97706;            }
+.status-option[data-value="Done"]            .status-option-dot { background: var(--green);       }
+
+/* ── FOOTER ──────────────────────────────── */
+.page-footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 11.5px;
+  color: var(--slate-light);
+  letter-spacing: 0.01em;
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────── -->
+<header class="page-header">
+  <div class="eyebrow">⚙️ Assessment Team · Adaptive Learning Strategy</div>
+  <h1>Assessment as the <em>Engine for Personalization</em></h1>
+  <p>The Assessment team owns the intelligence layer of the learner journey — collecting skill signals at every moment, modeling where each learner is, and determining how the experience adapts to get them to their goal.</p>
+</header>
+
+<!-- ── ANCHORING PURPOSE BANNER ───────────────────────── -->
+<div class="skill-goal-banner">
+  <div class="sgb-left">
+    <div class="sgb-icon">🎯</div>
+    <div>
+      <div class="sgb-label">Anchoring Purpose</div>
+      <div class="sgb-text">Every learner has a skill goal. The entire system exists to close the gap between where they are and where they want to be.</div>
+    </div>
+  </div>
+  <div class="sgb-right">Assessment is the mechanism that reads that gap, tracks progress against it, and tells the system how to close it faster — for every learner, continuously.</div>
+</div>
+
+<!-- ── SECTION LABEL ───────────────────────────────────── -->
+<div class="section-label" style="margin-top:40px;">The End-to-End Adaptive Learning Journey</div>
+
+<!-- ── LEARNER JOURNEY ─────────────────────────────────── -->
+<div class="journey-outer">
+  <div class="journey-row">
+
+    <!-- ── BASELINE GROUP — Q2 Focus ──────────────────── -->
+    <div class="group-wrap match-wrap is-clickable"
+         data-opp-trigger="opp1-modal"
+         role="button" tabindex="0"
+         aria-label="Open Q2 2026 focus: Baseline">
+
+      <div class="group-header">
+        <div class="group-title">Baseline</div>
+        <div class="q2-badge">Q2 Focus</div>
+      </div>
+
+      <div class="match-inner">
+
+        <!-- 01 Establish Skill Baseline -->
+        <div class="j-step c-teal" style="border-color:transparent; background:rgba(255,255,255,0.7);">
+          <div class="step-num">01</div>
+          <div class="step-icon-circle">🩺</div>
+          <div class="step-name">Establish Skill Baseline</div>
+          <div class="step-desc">Determine the learner's current skill level for this course — fed by conversational onboarding, diagnostics &amp; LLM-based contextual inputs</div>
+          <div class="sig-badge">Skill baseline</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="j-arr">→</div>
+
+    <!-- ── LEARNING BLOCK GROUP ────────────────────────── -->
+    <div class="group-wrap lb-wrap">
+
+      <div class="group-header">
+        <div class="group-title">Learning Block</div>
+      </div>
+
+      <div class="lb-inner">
+
+        <!-- 03 Conceptual Learning -->
+        <div class="j-step c-blue" style="border-color:transparent; background:rgba(255,255,255,0.65);">
+          <div class="step-num">03</div>
+          <div class="step-icon-circle">📚</div>
+          <div class="step-name">Conceptual Learning</div>
+          <div class="step-desc">Readings and videos</div>
+          <div class="sig-badge">Behavioural signals</div>
+        </div>
+
+        <div class="j-arr">→</div>
+
+        <!-- 04 Practice — Q2 Focus -->
+        <div class="j-step c-teal is-clickable"
+             data-opp-trigger="opp2-modal"
+             role="button" tabindex="0"
+             aria-label="Open Q2 2026 focus: Practice strategy"
+             style="border-color:transparent; background:rgba(255,255,255,0.65);">
+          <div class="q2-badge" style="position:absolute; top:8px; right:8px;">Q2 Focus</div>
+          <div class="step-num">04</div>
+          <div class="step-icon-circle">✍️</div>
+          <div class="step-name">Practice</div>
+          <div class="step-desc">Assignments or HOL assessments</div>
+          <div class="sig-badge">Skill progress</div>
+        </div>
+
+
+      </div>
+
+      <!-- Learning Block metadata -->
+      <div class="lb-meta">
+        <div class="lb-meta-item">⏱ <strong>~1 hour</strong> of learning</div>
+        <div class="lb-meta-item">🎯 Focused on <strong>one sub-skill</strong> / skill expression</div>
+      </div>
+
+    </div>
+
+    <div class="j-arr">→</div>
+
+    <!-- ── PROGRESS & ACHIEVEMENT GROUP ─────────────────── -->
+    <div class="group-wrap adapt-wrap">
+
+      <div class="group-header">
+        <div class="group-title">Progress &amp; Achievement</div>
+      </div>
+
+      <div class="adapt-inner">
+
+        <!-- 05 Verified Skill Assessment -->
+        <div class="j-step c-purple" style="border-color:transparent; background:rgba(255,255,255,0.7);">
+          <div class="step-num">05</div>
+          <div class="step-icon-circle">⚡</div>
+          <div class="step-name">Verified Skill Assessment</div>
+          <div class="step-desc">Graded assignments — required to gain skill progress &amp; earn achievements</div>
+          <div class="sig-badge">Skill assessment</div>
+        </div>
+
+        <div class="j-arr">→</div>
+
+        <!-- 06 Earn Certificate -->
+        <div class="j-step c-gold" style="border-color:transparent; background:rgba(255,255,255,0.7);">
+          <div class="step-num">06</div>
+          <div class="step-icon-circle">🏆</div>
+          <div class="step-name">Earn Certificate</div>
+          <div class="step-desc">Mastery confirmed — learner earns a verifiable credential for their skill</div>
+          <div class="sig-badge">Achievement unlocked</div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Q2 LEGEND ───────────────────────────────────────── -->
+<div class="q2-legend">
+  <span class="q2-legend-badge">Q2 Focus</span>
+  <span>= Q2 2026 Assessment team opportunities — click to explore</span>
+</div>
+
+<!-- ── SIGNAL FLOW CONNECTOR ──────────────────────────── -->
+<div class="signal-flow">
+  <div class="sf-center-label">
+    <span>All signals flow into the Assessment Engine</span>
+  </div>
+  <div class="sf-down-row">
+    <div class="sf-down-item"><div class="sf-line"></div><div class="sf-arrow">↓</div></div>
+    <div class="sf-down-item"><div class="sf-line"></div><div class="sf-arrow">↓</div></div>
+    <div class="sf-down-item"><div class="sf-line"></div><div class="sf-arrow">↓</div></div>
+    <div class="sf-down-item"><div class="sf-line"></div><div class="sf-arrow">↓</div></div>
+    <div class="sf-down-item"><div class="sf-line"></div><div class="sf-arrow">↓</div></div>
+  </div>
+</div>
+
+<!-- ── ASSESSMENT ENGINE ──────────────────────────────── -->
+<div class="engine-section">
+  <details class="engine-card">
+
+    <summary>
+      <div class="engine-head">
+        <div class="engine-head-title">
+          <h2>⚙️ The Assessment Engine</h2>
+        </div>
+        <div class="engine-head-right">
+          <div class="engine-ownership-badge">Assessment Team · Core Ownership</div>
+          <div class="engine-chevron" aria-hidden="true">▾</div>
+        </div>
+      </div>
+    </summary>
+
+    <div class="engine-body">
+
+      <div class="engine-pillars">
+
+        <!-- Pillar 1: Capture -->
+        <div class="eng-pillar p-capture">
+          <div class="ep-num">01 · Capture</div>
+          <div class="ep-icon">📡</div>
+          <div class="ep-title">Signal Collection</div>
+          <div class="ep-subtitle">Reading what every learner interaction tells us</div>
+          <p class="ep-copy">Reads every learner interaction — <strong>passive signals</strong> during content (engagement, time, behavior) and <strong>active signals</strong> at evaluation moments (accuracy, patterns, attempts), plus diagnostic baseline and stated learning context. Defines what counts as a meaningful skill signal.</p>
+        </div>
+
+        <div class="pillar-connector">
+          <div class="pillar-connector-arrow">→</div>
+        </div>
+
+        <!-- Pillar 2: Model -->
+        <div class="eng-pillar p-model">
+          <div class="ep-num">02 · Model</div>
+          <div class="ep-icon">🧠</div>
+          <div class="ep-title">Learner Modeling</div>
+          <div class="ep-subtitle">Building a dynamic picture of where each learner is</div>
+          <p class="ep-copy">Builds a continuously updated picture of each learner — <strong>concept-level skill state</strong>, gap identification, and pace &amp; retention patterns — with psychometric rigor (item quality, reliability, validity) behind the data.</p>
+        </div>
+
+        <div class="pillar-connector">
+          <div class="pillar-connector-arrow">→</div>
+        </div>
+
+        <!-- Pillar 3: Adapt -->
+        <div class="eng-pillar p-adapt">
+          <div class="ep-num">03 · Adapt</div>
+          <div class="ep-icon">🎯</div>
+          <div class="ep-title">Adaptation Logic</div>
+          <div class="ep-subtitle">Translating model insights into personalized next steps</div>
+          <p class="ep-copy">Translates model insights into action — <strong>mastery thresholds</strong>, remediation triggers, pathway selection for the next block, and the progress signals surfaced back to learners and instructors.</p>
+        </div>
+
+      </div>
+
+      <!-- Flow: pillars lead to outputs -->
+      <div class="engine-flow-connector">
+        <div class="efc-row">
+          <div class="efc-arrow">↓</div>
+          <div></div>
+          <div class="efc-arrow">↓</div>
+          <div></div>
+          <div class="efc-arrow">↓</div>
+        </div>
+        <div class="efc-label">↓ Which produces ↓</div>
+      </div>
+
+      <!-- Engine Outputs -->
+      <div class="engine-outputs">
+        <div class="engine-outputs-label">Assessment Engine Outputs</div>
+        <div class="engine-outputs-grid">
+
+          <div class="eo-card profile">
+            <div class="eo-icon">📈</div>
+            <div class="eo-title">Skill Progress, saved in the learner profile</div>
+            <div class="eo-desc">Measurable movement toward the skill the learner set out to build — captured in a living profile of what they know, where they struggle, and how they learn best, enriched after every learning block.</div>
+          </div>
+
+          <div class="eo-card block">
+            <div class="eo-icon">📋</div>
+            <div class="eo-title">Personalized Next Learning Block</div>
+            <div class="eo-desc">A new block designed around this learner's current state — adapted content mix, pacing, evaluation types, and depth.</div>
+          </div>
+
+        </div>
+        <div class="engine-loop-note">↺ &nbsp; The personalized next block feeds back into the learner journey — the engine keeps learning with every cycle</div>
+      </div>
+
+    </div>
+
+  </details>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer class="page-footer">
+  Assessment Team · Adaptive Learning Strategy · Coursera &nbsp;|&nbsp; Draft for discussion · April 2026
+</footer>
+
+<!-- ── OPPORTUNITY MODALS ─────────────────────────────── -->
+<div class="opp-modal" id="opp1-modal" role="dialog" aria-modal="true" aria-labelledby="opp1-title">
+  <div class="opp-modal-backdrop" data-close></div>
+  <div class="opp-modal-content">
+    <button class="opp-modal-close" data-close aria-label="Close">×</button>
+    <div class="opp-modal-eyebrow">Opportunity #2</div>
+    <h3 class="opp-modal-title" id="opp1-title">How might we understand where each learner is before the course begins?</h3>
+
+    <!-- Inputs → Baseline visual -->
+    <div style="margin: 0 0 20px; background: #F8FAFC; border: 1px solid #E5E7EB; border-radius: 12px; padding: 18px 16px 16px;">
+      <div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8C8C8C; margin-bottom: 14px; text-align: center;">What establishes the learner's baseline</div>
+      <svg width="100%" viewBox="0 0 480 192" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+
+        <!--
+          Each input box: h=56. Visual content block ≈ 38px.
+          Vertical centre of block = box_y + 28.
+          emoji baseline  = box_y + 22
+          title baseline  = box_y + 36
+          subtitle baseline = box_y + 47
+        -->
+
+        <!-- ── INPUT 1: Conv. Onboarding (teal) — box y=2 ── -->
+        <rect x="2" y="2" width="160" height="56" rx="9" fill="#E4F4F6" stroke="#B0DFE6" stroke-width="1.5"/>
+        <text x="82" y="24" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif">💬</text>
+        <text x="82" y="38" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0A6C7E" font-family="system-ui,sans-serif">Conv. Onboarding</text>
+        <text x="82" y="49" text-anchor="middle" font-size="9" fill="#595959" font-family="system-ui,sans-serif">Goals &amp; interests</text>
+
+        <!-- ── INPUT 2: LLM Context (blue) — box y=68 ── -->
+        <rect x="2" y="68" width="160" height="56" rx="9" fill="#E5F0FF" stroke="#B8D4FF" stroke-width="1.5"/>
+        <text x="82" y="90" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif">🤖</text>
+        <text x="82" y="104" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0056D2" font-family="system-ui,sans-serif">LLM Context</text>
+        <text x="82" y="115" text-anchor="middle" font-size="9" fill="#595959" font-family="system-ui,sans-serif">Learning intent</text>
+
+        <!-- ── INPUT 3: Diagnostics (purple) — box y=134 ── -->
+        <rect x="2" y="134" width="160" height="56" rx="9" fill="#EEE9F6" stroke="#D4C9EC" stroke-width="1.5"/>
+        <text x="82" y="156" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif">🩺</text>
+        <text x="82" y="170" text-anchor="middle" font-size="10.5" font-weight="700" fill="#6750A4" font-family="system-ui,sans-serif">Diagnostics</text>
+        <text x="82" y="181" text-anchor="middle" font-size="9" fill="#595959" font-family="system-ui,sans-serif">Self-assessed skill level</text>
+
+        <!-- ── CONNECTORS ── -->
+        <!-- Horizontal stubs from right edge of each box to vertical rail -->
+        <line x1="162" y1="30"  x2="176" y2="30"  stroke="#CBD5E1" stroke-width="1.4"/>
+        <line x1="162" y1="96"  x2="176" y2="96"  stroke="#CBD5E1" stroke-width="1.4"/>
+        <line x1="162" y1="162" x2="176" y2="162" stroke="#CBD5E1" stroke-width="1.4"/>
+        <!-- Vertical rail -->
+        <line x1="176" y1="30" x2="176" y2="162" stroke="#CBD5E1" stroke-width="1.4"/>
+        <!-- Horizontal run to model -->
+        <line x1="176" y1="96" x2="192" y2="96" stroke="#CBD5E1" stroke-width="1.4"/>
+        <polygon points="194,96 184,90 184,102" fill="#CBD5E1"/>
+
+        <!--
+          Model box: y=56, h=80, centre_y=96.
+          Content: emoji(16) + title1(11) + title2(11), total visual ≈ 42px.
+          emoji baseline  = 96 - 21 + 13 = 88
+          title1 baseline = 88 + 15      = 103
+          title2 baseline = 103 + 13     = 116
+        -->
+        <!-- ── LEARNER BASELINE MODEL (dark) — box y=56, h=80 ── -->
+        <rect x="196" y="56" width="282" height="80" rx="10" fill="#1E2D40" stroke="#2D4460" stroke-width="1.5"/>
+        <text x="337" y="88" text-anchor="middle" font-size="16" font-family="system-ui,sans-serif">👤</text>
+        <text x="337" y="103" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="system-ui,sans-serif">Learner Baseline</text>
+        <text x="337" y="116" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="system-ui,sans-serif">Skill Level</text>
+
+      </svg>
+    </div>
+
+    <p class="opp-modal-body">The quality of all downstream personalization depends on getting this baseline right. A well-connected Onboarding and Skill Diagnostic gives us what we need from day one: what each learner already knows, where their gaps are, and where to begin. Everything else — matching, adaptation, progress signals — is measured against this starting point.</p>
+    <div class="opp-modal-status">
+      <span class="opp-modal-status-label">Status</span>
+      <div class="status-dropdown" id="status-opp1">
+        <button class="status-trigger s-grey" type="button">
+          <span class="status-dot"></span>
+          <span class="status-text">Not yet started</span>
+          <span class="status-chevron">▾</span>
+        </button>
+        <div class="status-options">
+          <div class="status-option is-selected" data-value="Not yet started"><span class="status-option-dot"></span>Not yet started</div>
+          <div class="status-option" data-value="Shaping"><span class="status-option-dot"></span>Shaping</div>
+          <div class="status-option" data-value="In Design"><span class="status-option-dot"></span>In Design</div>
+          <div class="status-option" data-value="In Development"><span class="status-option-dot"></span>In Development</div>
+          <div class="status-option" data-value="Done"><span class="status-option-dot"></span>Done</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="opp-modal" id="opp2-modal" role="dialog" aria-modal="true" aria-labelledby="opp2-title">
+  <div class="opp-modal-backdrop" data-close></div>
+  <div class="opp-modal-content">
+    <button class="opp-modal-close" data-close aria-label="Close">×</button>
+    <div class="opp-modal-eyebrow">Opportunity #2</div>
+    <h3 class="opp-modal-title" id="opp2-title">How might we use practice to close individual skill gaps before learners reach the graded assessment?</h3>
+
+    <!-- Diagram -->
+    <div style="margin: 0 0 20px; background: #F8FAFC; border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px 16px 16px;">
+      <div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8C8C8C; margin-bottom: 14px; text-align: center;">How practice is generated</div>
+      <svg width="100%" viewBox="0 0 600 150" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+        <defs>
+          <linearGradient id="rulerGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#BFDBFE"/>
+            <stop offset="100%" stop-color="#C8B9EE"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Learner Model pill -->
+        <rect x="2" y="18" width="152" height="72" rx="10" fill="#EEE9F6" stroke="#D4C9EC" stroke-width="1.5"/>
+        <text x="78" y="45" text-anchor="middle" font-size="16" font-family="system-ui,sans-serif">🧠</text>
+        <text x="78" y="63" text-anchor="middle" font-size="11" font-weight="700" fill="#6750A4" font-family="system-ui,sans-serif">Learner Model</text>
+        <text x="78" y="78" text-anchor="middle" font-size="9.5" fill="#595959" font-family="system-ui,sans-serif">Current skill state</text>
+
+        <!-- VSA Requirements pill -->
+        <rect x="446" y="18" width="152" height="72" rx="10" fill="#EEE9F6" stroke="#D4C9EC" stroke-width="1.5"/>
+        <text x="522" y="45" text-anchor="middle" font-size="16" font-family="system-ui,sans-serif">⚡</text>
+        <text x="522" y="63" text-anchor="middle" font-size="11" font-weight="700" fill="#6750A4" font-family="system-ui,sans-serif">VSA Requirements</text>
+        <text x="522" y="78" text-anchor="middle" font-size="9.5" fill="#595959" font-family="system-ui,sans-serif">Skills required to pass</text>
+
+        <!-- Ruler track -->
+        <rect x="156" y="51" width="288" height="6" rx="3" fill="url(#rulerGrad)"/>
+
+        <!-- Tick marks -->
+        <line x1="156" y1="44" x2="156" y2="64" stroke="#6750A4" stroke-width="2" stroke-linecap="round"/>
+        <line x1="444" y1="44" x2="444" y2="64" stroke="#6750A4" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- GAP label above ruler -->
+        <text x="300" y="41" text-anchor="middle" font-size="10" font-weight="800" letter-spacing="2" fill="#4338CA" font-family="system-ui,sans-serif">← GAP →</text>
+
+        <!-- Drop arrow from ruler midpoint down to output -->
+        <line x1="300" y1="60" x2="300" y2="112" stroke="#4338CA" stroke-width="1.8" stroke-dasharray="4,3"/>
+        <polygon points="300,120 294,110 306,110" fill="#4338CA"/>
+
+        <!-- Generated Practice pill -->
+        <rect x="196" y="122" width="208" height="24" rx="9" fill="#E4F4F6" stroke="#B0DFE6" stroke-width="1.5"/>
+        <text x="300" y="138" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0A6C7E" font-family="system-ui,sans-serif">✍️  Generated Practice</text>
+      </svg>
+    </div>
+
+    <p class="opp-modal-body">Practice is generated by computing the delta between our most up-to-date model of the learner — what they currently know and where they're still uncertain — and the skills required to pass the Verified Skill Assessment. That gap becomes the input: every practice item is targeted to close it.</p>
+    <p class="opp-modal-body">As learners work through practice, their signals continuously update the learner model, narrowing the gap in real time and adjusting what comes next. Done well, learners arrive at the Verified Skill Assessment having already worked through their gaps — not discovering them.</p>
+    <div class="opp-modal-status">
+      <span class="opp-modal-status-label">Status</span>
+      <div class="status-dropdown" id="status-opp2">
+        <button class="status-trigger s-grey" type="button">
+          <span class="status-dot"></span>
+          <span class="status-text">Not yet started</span>
+          <span class="status-chevron">▾</span>
+        </button>
+        <div class="status-options">
+          <div class="status-option is-selected" data-value="Not yet started"><span class="status-option-dot"></span>Not yet started</div>
+          <div class="status-option" data-value="Shaping"><span class="status-option-dot"></span>Shaping</div>
+          <div class="status-option" data-value="In Design"><span class="status-option-dot"></span>In Design</div>
+          <div class="status-option" data-value="In Development"><span class="status-option-dot"></span>In Development</div>
+          <div class="status-option" data-value="Done"><span class="status-option-dot"></span>Done</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function openModal(id) {
+      var modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(modal) {
+      if (!modal) return;
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('[data-opp-trigger]').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        if (e.target.closest('[data-close]')) return;
+        openModal(el.getAttribute('data-opp-trigger'));
+      });
+      el.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(el.getAttribute('data-opp-trigger'));
+        }
+      });
+    });
+    document.querySelectorAll('[data-close]').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeModal(el.closest('.opp-modal'));
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.opp-modal.open').forEach(closeModal);
+        document.querySelectorAll('.status-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+      }
+    });
+  })();
+
+  // ── STATUS DROPDOWNS ──────────────────────────────────
+  (function() {
+    var colorMap = {
+      'Not yet started': 's-grey',
+      'Shaping':         's-blue',
+      'In Design':       's-purple',
+      'In Development':  's-amber',
+      'Done':            's-green'
+    };
+
+    function openDropdown(dropdown) {
+      document.querySelectorAll('.status-dropdown.open').forEach(function(d) {
+        if (d !== dropdown) d.classList.remove('open');
+      });
+      dropdown.classList.toggle('open');
+    }
+
+    function selectStatus(dropdown, value) {
+      // Update trigger label and colour
+      var trigger = dropdown.querySelector('.status-trigger');
+      trigger.querySelector('.status-text').textContent = value;
+      Object.values(colorMap).forEach(function(c) { trigger.classList.remove(c); });
+      trigger.classList.add(colorMap[value] || 's-grey');
+
+      // Update selected state on options
+      dropdown.querySelectorAll('.status-option').forEach(function(opt) {
+        opt.classList.toggle('is-selected', opt.dataset.value === value);
+      });
+
+      dropdown.classList.remove('open');
+    }
+
+    document.querySelectorAll('.status-dropdown').forEach(function(dropdown) {
+      // Toggle open on trigger click
+      dropdown.querySelector('.status-trigger').addEventListener('click', function(e) {
+        e.stopPropagation();
+        openDropdown(dropdown);
+      });
+
+      // Select on option click
+      dropdown.querySelectorAll('.status-option').forEach(function(opt) {
+        opt.addEventListener('click', function(e) {
+          e.stopPropagation();
+          selectStatus(dropdown, opt.dataset.value);
+        });
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.status-dropdown.open').forEach(function(d) {
+        d.classList.remove('open');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
